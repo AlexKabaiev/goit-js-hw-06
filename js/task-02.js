@@ -13,11 +13,13 @@ const ingredients = [
   "Condiments",
 ];
 
-const ingredientsList = document.querySelector("#ingredients");
-ingredients.forEach((ingredient) => {
-  const item = document.createElement("li");
-  item.textContent = ingredient;
-  item.classList.add("item");
-  ingredientsList.append(item);
-});
+const ListOfingredientsEl = document.querySelector("#ingredients");
+let fragment = new DocumentFragment();
+for (const value of ingredients) {
+  const itemOfIngredientsEl = document.createElement("li");
+  itemOfIngredientsEl.classList.add("item");
+  itemOfIngredientsEl.textContent += value;
+  fragment.appendChild(itemOfIngredientsEl);
+}
 
+document.querySelector("#ingredients").append(fragment);
