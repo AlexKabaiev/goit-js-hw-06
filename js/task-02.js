@@ -12,14 +12,23 @@ const ingredients = [
   "Herbs",
   "Condiments",
 ];
+// Первый вариант
+const ingredientsList = document.querySelector("#ingredients");
+const itemsList = ingredients.map((ingredient) => {
+  const item = document.createElement("li");
+  item.textContent = ingredient;
+  item.classList.add("item");
+  return item;
+});
+ingredientsList.append(...itemsList);
 
-const ListOfingredientsEl = document.querySelector("#ingredients");
-let fragment = new DocumentFragment();
-for (const value of ingredients) {
-  const itemOfIngredientsEl = document.createElement("li");
-  itemOfIngredientsEl.classList.add("item");
-  itemOfIngredientsEl.textContent += value;
-  fragment.appendChild(itemOfIngredientsEl);
-}
-
-document.querySelector("#ingredients").append(fragment);
+//Второй вариант
+// const ListOfingredientsEl = document.querySelector("#ingredients");
+// let fragment = new DocumentFragment();
+// for (const value of ingredients) {
+//   const itemOfIngredientsEl = document.createElement("li");
+//   itemOfIngredientsEl.classList.add("item");
+//   itemOfIngredientsEl.textContent += value;
+//   fragment.appendChild(itemOfIngredientsEl);
+// }
+// document.querySelector("#ingredients").append(fragment);
