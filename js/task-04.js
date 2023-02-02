@@ -11,11 +11,11 @@ const targetButtonMinus = document.querySelector(
   'button[data-action="decrement"]'
 );
 targetButtonPlus.addEventListener("click", () => {
-  counterValue = counterValue + 1;
+  counterValue += 1;
   counter.textContent = counterValue;
 });
 
 targetButtonMinus.addEventListener("click", () => {
-counterValue = counterValue - 1;
+counterValue -= 1;
 counter.textContent = counterValue;
 });
