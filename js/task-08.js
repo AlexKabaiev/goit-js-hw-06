@@ -22,33 +22,33 @@
 //Для доступа к элементам формы используй свойство elements.
 //Выведи обьект с введенными данными в консоль и очисти значения полей формы методом reset.
 
-var render = document.querySelector('[data-action="render"]');
-var destroy = document.querySelector('[data-action="destroy"]');
-var boxes = document.getElementById("boxes");
-render.addEventListener("click", getAmount);
-destroy.addEventListener("click", destroyBoxes);
+// 3.1 Додати логіку підтвердження форми.
+// При натисканні на кнопку "Submit" перевіряємо введені логін і пароль:
+//     * Якщо логін і пароль співпадають,
+// то переходимо на нову сторінку веб-сайту (тобто видаляємо все з документа)
+// і показуємо <h2> з написом "Вхід успішний";
+//     * Якщо логін і пароль не вірні,
+// то показуємо під формою текст <p> червоним кольором "Логін або пароль не вірні".
 
-function getAmount() {
-  var amount = +document.querySelector("#controls input").value;
-  createBoxes(amount);
-}
+const correctLogin = "user@goit.com";
+const correctPassword = "1111";
 
-function createBoxes(amount) {
-  var basicSize = 30;
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < amount; i++) {
-    var size = basicSize + i * 10;
-    var div = document.createElement("div");
-    div.style.cssText = `width: ${size}px; height: ${size}px; background-color: rgba( ${random()} , ${random()} , ${random()} )`;
-    fragment.appendChild(div);
-  }
-  boxes.appendChild(fragment);
-}
+const loginForm = document.querySelector("#login-form");
+const formError = document.querySelector(".error");
 
-function destroyBoxes() {
-  boxes.innerHTML = "";
-}
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-function random() {
-  return Math.floor(Math.random() * 256);
-}
+  const form = new FormData(e.target);
+
+  if (
+    form.get("login") === correctLogin &&
+    form.get("password") === correctPassword
+  ) {
+    closeModal();
+
+    document.body.innerHTML = `
+        <h2 style="color:green;">Вхід успішний</h2>
+    `;
+  } else showError();
+});
