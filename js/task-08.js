@@ -1,7 +1,7 @@
-
 //Напиши скрипт управления формой логина.
 
-{/* <form class="login-form">
+{
+  /* <form class="login-form">
   <label>
     Email
     <input type="email" name="email" />
@@ -11,7 +11,8 @@
     <input type="password" name="password" />
   </label>
   <button type="submit">Login</button>
-</form> */}
+</form> */
+}
 
 //Обработка отправки формы form.login-form должна быть по событию submit.
 //При отправке формы страница не должна перезагружаться.
@@ -22,33 +23,19 @@
 //Для доступа к элементам формы используй свойство elements.
 //Выведи обьект с введенными данными в консоль и очисти значения полей формы методом reset.
 
-// 3.1 Додати логіку підтвердження форми.
-// При натисканні на кнопку "Submit" перевіряємо введені логін і пароль:
-//     * Якщо логін і пароль співпадають,
-// то переходимо на нову сторінку веб-сайту (тобто видаляємо все з документа)
-// і показуємо <h2> з написом "Вхід успішний";
-//     * Якщо логін і пароль не вірні,
-// то показуємо під формою текст <p> червоним кольором "Логін або пароль не вірні".
+const loginForm = document.querySelector(".login-form");
+loginForm.addEventListener("submit", handleSubmit);
 
-const correctLogin = "user@goit.com";
-const correctPassword = "1111";
+function handleSubmit(event) {
+  event.preventDefault();
+  const {
+    elements: { email, password },
+  } = event.currentTarget;
 
-const loginForm = document.querySelector("#login-form");
-const formError = document.querySelector(".error");
+  if (email.value === "" || password.value === "") {
+    return alert("Please fill in all the fields!");
+  }
 
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const form = new FormData(e.target);
-
-  if (
-    form.get("login") === correctLogin &&
-    form.get("password") === correctPassword
-  ) {
-    closeModal();
-
-    document.body.innerHTML = `
-        <h2 style="color:green;">Вхід успішний</h2>
-    `;
-  } else showError();
-});
+  console.log(`Email: ${email.value}, Password: ${password.value}`);
+  event.currentTarget.reset();
+}
