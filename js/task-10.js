@@ -1,4 +1,4 @@
-//Напиши скрипт создания и очистки коллекции элементов. 
+//Напиши скрипт создания и очистки коллекции элементов.
 //Пользователь вводит количество элементов в input и нажимает кнопку Создать, после чего рендерится коллекция.При нажатии на кнопку
 //Очистить, коллекция элементов очищается.
 
@@ -10,7 +10,7 @@
 
 // <div id="boxes"></div>
 
-//Создай функцию createBoxes(amount), которая принимает один параметр - число. 
+//Создай функцию createBoxes(amount), которая принимает один параметр - число.
 //Функция создает столько < div >, сколько указано в amount и добавляет их в div#boxes.
 
 //Размеры самого первого <div> - 30px на 30px.
@@ -26,34 +26,56 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
+const create = document.querySelector("button[data-create]");
+const destroy = document.querySelector("button[data-destroy]");
+const boxes = document.querySelector("#boxes");
+const input = document.querySelector("input");
 
-// const render = document.querySelector('[data-action="render"]');
-// const destroy = document.querySelector('[data-action="destroy"]');
-// const boxes = document.querySelector("#boxes");
-// render.addEventListener("click", getAmount);
-// destroy.addEventListener("click", destroyBoxes);
+const createBoxes = (amount) => {
+  amount = input.value;
+  const arr = new Array(Number(amount)).fill("");
+  const markup = arr
+    .map((value, index) => {
+      value +
+        `<div style=
+    width: ${30 + index * 10}px
+    height: ${30 + index * 10}px
+    backgroundcolor: ${getRandomHexColor()}>
+    </div>`;
+    })
+    .join("");
+  boxes.insertAdjacentHTML("beforeend", markup);
+};
+
+function destroyBoxes() {
+  boxes.innerHTML = "";
+  input.value = "";
+}
+
+create.addEventListener("click", createBoxes);
+destroy.addEventListener("click", destroyBoxes);
 
 // function getAmount() {
-//   const amount = +document.querySelector("#controls input").value;
+//   const amount = input.value;
 //   createBoxes(amount);
 // }
-
 // function createBoxes(amount) {
-//   const basicSize = 30;
-//   const fragment = document.createDocumentFragment();
-//   for (const i = 0; i < amount; i++) {
-//     const size = basicSize + i * 10;
-//     const div = document.createElement("div");
-//     div.style.cssText = `width: ${size}px; height: ${size}px; background-color: rgba( ${random()} , ${random()} , ${random()} )`;
-//     fragment.appendChild(div);
-//   }
-//   boxes.appendChild(fragment);
+//   const arr = new Array(Number(amount)).fill("");
+//   const markup = arr.map((value, index) => {
+//       value + `<div style=
+//     width: ${30 + index * 10}px
+//     height: ${30 + index * 10}px
+//     backgroundcolor: ${getRandomHexColor()}>
+//     </div>`;
+//     })
+//     .join("");
+//   boxes.insertAdjacentHTML("beforeend", markup);
 // }
 
 // function destroyBoxes() {
 //   boxes.innerHTML = "";
+//   input.value = "";
 // }
 
-// function random() {
-//   return Math.floor(Math.random() * 256);
-// }
+// create.addEventListener("click", getAmount);
+// destroy.addEventListener("click", destroyBoxes);
